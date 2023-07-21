@@ -1,0 +1,33 @@
+require "yaml"
+
+conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
+
+Vagrant.configure("2") do |config|
+
+  conf["control-planes"].each do |cp|
+    config.vm.define cp["name"] do |cfg|
+      cfg.vm.box = cp["box"]
+      cfg.vm.network "public_network", ip: cp["ip"]
+      cfg.vm.hostname = cp["hostname"]
+      
+      cfg.vm.provider cp["provider"] do |v|
+        v.vmx["memsize"] = cp["memory"]
+        v.vmx["numvcpus"] = cp["cpu"]
+      end
+    end
+  end
+
+  conf["workers"].each do |wk|
+    config.vm.define wk["name"] do |cfg|
+      cfg.vm.box = wk["box"]
+      cfg.vm.network "public_network", ip: wk["ip"]
+      cfg.vm.hostname = wk["hostname"]
+      
+      cfg.vm.provider wk["provider"] do |v|
+        v.vmx["memsize"] = wk["memory"]
+        v.vmx["numvcpus"] = wk["cpu"]
+      end
+    end
+  end
+
+end

@@ -1,0 +1,6 @@
+box: generic/ubuntu2204
+hostname: my-vm2
+ip: 192.168.0.60
+provider: vmware_desktop
+memory: 4096
+cpu: 4

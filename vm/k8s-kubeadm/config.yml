@@ -1,0 +1,16 @@
+control-planes:
+  - name: control-plane
+    box: generic/ubuntu2204
+    hostname: control-plane
+    ip: 192.168.0.70
+    provider: vmware_desktop
+    memory: 4096
+    cpu: 4
+workers:
+  - name: worker1
+    box: generic/ubuntu2204
+    hostname: worker1
+    ip: 192.168.0.71
+    provider: vmware_desktop
+    memory: 4096
+    cpu: 4

@@ -1,0 +1,17 @@
+require "yaml"
+
+conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
+
+Vagrant.configure("2") do |config|
+  config.vm.box = conf["box"]
+  config.vm.hostname = conf["hostname"]
+  config.vm.network "public_network", ip: conf["ip"]
+
+  config.vm.provider conf["provider"] do |v|
+    v.vmx["memsize"] = conf["memory"]
+    v.vmx["numvcpus"] = conf["cpu"]
+  end
+
+  config.vm.provision "shell",
+    inline: "sudo apt-get update && sudo apt-get install net-tools"
+end
