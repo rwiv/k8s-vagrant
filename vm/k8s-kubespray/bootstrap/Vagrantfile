@@ -1,0 +1,18 @@
+require "yaml"
+
+conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
+
+Vagrant.configure("2") do |config|
+  config.vm.box = conf["box"]
+  config.vm.hostname = conf["hostname"]
+  config.vm.network "public_network", ip: conf["ip"]
+
+  config.vm.provider conf["provider"] do |v|
+    v.vmx["memsize"] = conf["memory"]
+    v.vmx["numvcpus"] = conf["cpu"]
+  end
+
+  config.vm.provision "shell", path: "../../../scripts/k8s/base-settings.bash"
+  config.vm.provision "shell", inline: "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+  config.vm.provision "shell", inline: "systemctl restart sshd"
+end
