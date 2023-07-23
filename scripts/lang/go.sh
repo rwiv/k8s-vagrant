@@ -1,3 +1,5 @@
+#!/bin/bash
+
 home=
 if [ -n "$1" ]; then
     home=$1

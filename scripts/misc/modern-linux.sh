@@ -1,3 +1,7 @@
+#!/bin/bash
+
+cd $(dirname $0)
+
 home=
 if [ -n "$1" ]; then
     home=$1

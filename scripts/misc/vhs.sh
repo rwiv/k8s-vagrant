@@ -1,10 +1,20 @@
+#!/bin/bash
+
+cd $(dirname $0)
+
 sudo apt-get upadte
-sudo apt-get install -y ffmpeg build-essential cmake git libjson-c-dev libwebsockets-dev
+
+# install ffmpeg
+sudo apt-get install -y ffmpeg
+
+# install ttyd
+sudo apt-get install -y build-essential cmake git libjson-c-dev libwebsockets-dev
 git clone https://github.com/tsl0922/ttyd.git
 cd ttyd && mkdir build && cd build
 cmake ..
 make && sudo make install
 
+# install vhs
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
