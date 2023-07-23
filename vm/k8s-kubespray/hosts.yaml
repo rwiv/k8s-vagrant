@@ -1,23 +1,23 @@
 all:
   hosts:
-    node1:
+    master:
       ansible_host: 192.168.0.80
       ip: 192.168.0.80
       access_ip: 192.168.0.80
-    node2:
+    worker1:
       ansible_host: 192.168.0.81
       ip: 192.168.0.81
       access_ip: 192.168.0.81
   children:
     kube_control_plane:
       hosts:
-        node1:
+        master:
     kube_node:
       hosts:
-        node2:
+        worker1:
     etcd:
       hosts:
-        node1:
+        master:
     k8s_cluster:
       children:
         kube_control_plane:

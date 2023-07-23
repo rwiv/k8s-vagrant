@@ -1,21 +1,12 @@
 addresses=(192.168.0.80 192.168.0.81)
 username=vagrant
 
-sudo apt-get update
-sudo apt-get install -y python3-pip
-
-git clone https://github.com/kubernetes-sigs/kubespray.git
-
 cd kubespray
-pip install -r requirements.txt
-# sudo systemctl daemon-reload
-
 
 ssh-keygen -t rsa
 for (( i=0; i<${#addresses[@]}; i++ )); do
     ssh-copy-id ${username}@${addresses[i]}
 done
-
 
 cp -rfp inventory/sample inventory/mycluster
 

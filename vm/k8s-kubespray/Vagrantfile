@@ -15,9 +15,9 @@ Vagrant.configure("2") do |config|
         v.vmx["numvcpus"] = cp["cpu"]
       end
 
-      config.vm.provision "shell", path: "../../../scripts/k8s/base-settings.bash"
-      config.vm.provision "shell", inline: "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
-      config.vm.provision "shell", inline: "systemctl restart sshd"
+
+      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-node-base.bash"
+      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-boot-base.bash"
     end
   end
 
@@ -32,9 +32,7 @@ Vagrant.configure("2") do |config|
         v.vmx["numvcpus"] = wk["cpu"]
       end
 
-      config.vm.provision "shell", path: "../../../scripts/k8s/base-settings.bash"
-      config.vm.provision "shell", inline: "sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
-      config.vm.provision "shell", inline: "systemctl restart sshd"
+      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-node-base.bash"
     end
   end
 end
