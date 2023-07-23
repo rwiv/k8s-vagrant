@@ -2,6 +2,17 @@ require "yaml"
 
 conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
 
+# native
+s = "../../scripts"
+sk = "#{s}/kubernetes"
+skk = "#{sk}/kubespray"
+
+# vm
+h = "/home/vagrant"
+hs = "#{h}/scripts"
+hsk = "#{hs}/kubernetes"
+hk = "#{h}/kubespray"
+
 Vagrant.configure("2") do |config|
 
   conf["control-planes"].each do |cp|
@@ -15,9 +26,11 @@ Vagrant.configure("2") do |config|
         v.vmx["numvcpus"] = cp["cpu"]
       end
 
-
-      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-node-base.bash"
-      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-boot-base.bash"
+      cfg.vm.synced_folder "#{s}", "#{hs}"
+      cfg.vm.provision "file", source: "./kubespray", destination: "#{hk}"
+      cfg.vm.provision "shell", inline: "sudo cp -rfp #{hsk}/kubespray/bootstrap/* #{hk}"
+      cfg.vm.provision "shell", path: "#{skk}/nodes/node-base.sh"
+      cfg.vm.provision "shell", inline: "sudo #{hsk}/misc/aliases.sh #{h}"
     end
   end
 
@@ -32,7 +45,7 @@ Vagrant.configure("2") do |config|
         v.vmx["numvcpus"] = wk["cpu"]
       end
 
-      config.vm.provision "shell", path: "../../scripts/k8s/kubespray-node-base.bash"
+      cfg.vm.provision "shell", path: "#{skk}/nodes/node-base.sh"
     end
   end
 end

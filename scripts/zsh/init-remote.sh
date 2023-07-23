@@ -1,5 +1,3 @@
-#!/bin/bash
-
 sudo apt-get update
 
 # install zsh
@@ -12,8 +10,8 @@ sudo su - $1 -c "echo \n | sh install.sh"
 ZSH_HOME=/home/$1
 
 # add symbolic link
-sudo ln -s $ZSH_HOME/.oh-my-zsh $HOME/.oh-my-zsh
-sudo ln -s $ZSH_HOME/.zshrc $HOME/.zshrc
+sudo ln -s $ZSH_HOME/.oh-my-zsh ~/.oh-my-zsh
+sudo ln -s $ZSH_HOME/.zshrc ~/.zshrc
 
 # change default shell
 sudo chsh -s /bin/zsh $1
@@ -22,8 +20,8 @@ sudo chsh -s /bin/zsh root
 # install powerlevel10k
 cd $(dirname $0)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-sudo cp ./conf/.zshrc $ZSH_HOME/.zshrc
-sudo cp ./conf/.p10k.zsh $ZSH_HOME/.p10k.zsh
+sudo cp conf/.zshrc $ZSH_HOME/.zshrc
+sudo cp conf/.p10k.zsh $ZSH_HOME/.p10k.zsh
 
 # copy .p10k.zsh to root home directory
-sudo cp $ZSH_HOME/.p10k.zsh $HOME/.p10k.zsh
+sudo cp $ZSH_HOME/.p10k.zsh ~/.p10k.zsh
