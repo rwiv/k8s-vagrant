@@ -7,10 +7,10 @@ s = "../../scripts"
 
 # vm
 h = "/home/vagrant"
-hk = "#{h}/kubespray"
 hs = "#{h}/scripts"
 hsm = "#{hs}/misc"
 hsk = "#{hs}/kubernetes"
+hk = "#{h}/kubespray"
 
 Vagrant.configure("2") do |config|
 
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       cfg.vm.provision "file", source: "./kubespray", destination: "#{hk}"
       cfg.vm.provision "shell", inline: "chmod -R 777 #{hk}", privileged: false
       cfg.vm.provision "shell", inline: "cp -rfp #{hsk}/kubespray/bootstrap/* #{hk}", privileged: false
-      cfg.vm.provision "shell", inline: "#{hsk}/kubesprat/nodes/node-base.sh", privileged: false
+      cfg.vm.provision "shell", inline: "#{hsk}/kubespray/nodes/node-base.sh", privileged: false
       cfg.vm.provision "shell", inline: "#{hsk}/misc/aliases.sh", privileged: false
       cfg.vm.provision "shell", inline: "#{hk}/install.sh", privileged: false
     end
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
 
       cfg.vm.provision "shell", inline: "#{hsm}/base-settings.sh", privileged: false
 
-      cfg.vm.provision "shell", inline: "#{hsk}/kubesprat/nodes/node-base.sh", privileged: false
+      cfg.vm.provision "shell", inline: "#{hsk}/kubespray/nodes/node-base.sh", privileged: false
     end
   end
 end
