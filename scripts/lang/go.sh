@@ -1,15 +1,10 @@
 #!/bin/bash
 
-home=
-if [ -n "$1" ]; then
-    home=$1
-else
-    home=$HOME
-fi
-
 sudo apt-get install -y golang
 
-echo 'PATH=$PATH:~/go/bin' >> $home/.bashrc
-if [ -e ~/.zshrc ]; then
-    echo 'PATH=$PATH:~/go/bin' >> $home/.zshrc
-fi
+rcs=( ~/.bashrc ~/.zshrc )
+for rc in ${rcs[@]}; do
+    if [ -e $rc ]; then
+        echo "PATH=\$PATH:$HOME/go/bin" | sudo tee -a $rc > /dev/null
+    fi
+done

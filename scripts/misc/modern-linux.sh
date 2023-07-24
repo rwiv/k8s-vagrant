@@ -2,13 +2,6 @@
 
 cd $(dirname $0)
 
-home=
-if [ -n "$1" ]; then
-    home=$1
-else
-    home=$HOME
-fi
-
 sudi apt-get update
 sudo apt-get install -y exa
 sudo apt-get install -y fzf
@@ -26,26 +19,30 @@ sudo apt-get install -y broot
 sudo apt-get install -y btop
 
 
+rcs=( ~/.bashrc ~/.zshrc )
+
 if [ ! -e ~/.local/bin ]; then
-    mkdir -p $home/.local/bin
-    echo 'PATH=$PATH:~/.local/bin' >> $home/.bashrc
-    if [ -e ~/.zshrc ]; then
-        echo 'PATH=$PATH:~/.local/bin' >> $home/.zshrc
-    fi
+    mkdir -p ~/.local/bin
+
+    for rc in ${rcs[@]}; do
+        if [ -e $rc ]; then
+            echo "PATH=\$PATH:$HOME/.local/bin" | sudo tee -a $rc > /dev/null
+        fi
+    done
 fi
 
 if [ -e /usr/bin/batcat ]; then
-    ln -s /usr/bin/batcat $home/.local/bin/bat
+    ln -s /usr/bin/batcat ~/.local/bin/bat
 fi
 if [ -e /usr/bin/fdfind ]; then
-    ln -s /usr/bin/fdfind $home/.local/bin/fd
+    ln -s /usr/bin/fdfind ~/.local/bin/fd
 fi
 
-
-rcs=( "$home/.bashrc" "$home/.zshrc" )
 for rc in ${rcs[@]}; do
-    echo "alias l='exa -F'" >> $rc
-    echo "alias ll='exa -alF'" >> $rc
-    echo "alias lp='exa -lF'" >> $rc
-    echo "alias br='broot'" >> $rc
+    if [ -e $rc ]; then
+        echo "alias l='exa -F'" | sudo tee -a $rc > /dev/null
+        echo "alias ll='exa -alF'" | sudo tee -a $rc > /dev/null
+        echo "alias lp='exa -lF'" | sudo tee -a $rc > /dev/null
+        echo "alias br='broot'" | sudo tee -a $rc > /dev/null
+    fi
 done

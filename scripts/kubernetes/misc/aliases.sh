@@ -1,13 +1,7 @@
 #!/bin/bash
-
-home=
-if [ -n "$1" ]; then
-    home=$1
-else
-    home=$HOME
-fi
-
-rcs=( "$home/.bashrc" "$home/.zshrc" )
+rcs=( ~/.bashrc ~/.zshrc )
 for rc in ${rcs[@]}; do
-    echo "alias k='kubectl'" >> $rc
+    if [ -e $rc ]; then
+        echo "alias k='kubectl'" | sudo tee -a $rc > /dev/null
+    fi
 done

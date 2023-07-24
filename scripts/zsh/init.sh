@@ -19,8 +19,19 @@ sudo chsh -s /bin/zsh root
 # install powerlevel10k
 cd $(dirname $0)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-sudo cp conf/.zshrc ~/.zshrc
-sudo cp conf/.p10k.zsh ~/.p10k.zsh
+cp conf/.zshrc ~/.zshrc
+cp conf/.p10k.zsh ~/.p10k.zsh
 
 # copy .p10k.zsh to root home directory
 sudo cp ~/.p10k.zsh /root/.p10k.zsh
+
+if [ ! -e ~/.local/bin ]; then
+    mkdir -p ~/.local/bin
+fi
+
+rcs=( ~/.bashrc ~/.zshrc )
+for rc in ${rcs[@]}; do
+    if [ -e $rc ]; then
+        echo "PATH=\$PATH:$HOME/.local/bin" | sudo tee -a $rc > /dev/null
+    fi
+done
