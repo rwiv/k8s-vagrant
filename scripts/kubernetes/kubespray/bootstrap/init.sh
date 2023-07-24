@@ -31,8 +31,9 @@ declare -a IPS=${addresses[@]}
 CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
 cd ..
-if [ -n "$3" ]; then
-    cp $3 kubespray/inventory/mycluster/hosts.yaml
-else
+if [ -e hosts.yaml ]; then
     cp hosts.yaml kubespray/inventory/mycluster/hosts.yaml
+fi
+if [ -e addons.yml ]; then
+    cp addons.yml kubespray/inventory/mycluster/group_vars/k8s_cluster/addons.yml
 fi
