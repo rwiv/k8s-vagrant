@@ -31,10 +31,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "#{hsm}/tools.sh", privileged: false
   config.vm.provision "shell", inline: "#{hsm}/docker.sh", privileged: false
 
-  # config.vm.provision "shell", inline: "#{hsl}/go.sh", privileged: false
-  # config.vm.provision "shell", inline: "#{hsl}/java.sh", privileged: false
-  # config.vm.provision "shell", inline: "#{hsl}/nodejs.sh", privileged: false
-  # config.vm.provision "shell", inline: "#{hsl}/python.sh", privileged: false
+  config.vm.provision "shell", inline: "#{hsl}/go.sh", privileged: false
+  config.vm.provision "shell", inline: "#{hsl}/java.sh", privileged: false
+  config.vm.provision "shell", inline: "#{hsl}/nodejs.sh", privileged: false
+  config.vm.provision "shell", inline: "#{hsl}/python.sh", privileged: false
 
   config.vm.provision "file", source: "./kubespray", destination: "#{hk}"
   config.vm.provision "shell", inline: "cp -rfp #{hsk}/kubespray/bootstrap/* #{hk}", privileged: false
