@@ -24,6 +24,8 @@ if "%1"=="stat" (
     echo y| vagrant destroy
 ) else if "%1"=="deli" (
     vagrant destroy
+) else if "%1"=="snl" (
+    vagrant snapshot list
 ) else if "%1"=="sns" (
     vagrant snapshot save %2
 ) else if "%1"=="snd" (

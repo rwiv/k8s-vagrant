@@ -1,3 +1,5 @@
+#!/bin/bash
+
 (
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
@@ -7,4 +9,10 @@
   tar zxvf "${KREW}.tar.gz" &&
   ./"${KREW}" install krew
 )
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+rcs=( ~/.bashrc ~/.zshrc )
+for rc in ${rcs[@]}; do
+    if [ -e $rc ]; then
+        echo "PATH=\$PATH:${KREW_ROOT:-$HOME/.krew}/bin" | sudo tee -a $rc > /dev/null
+    fi
+done
