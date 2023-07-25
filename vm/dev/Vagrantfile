@@ -3,7 +3,7 @@ require "yaml"
 conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
 
 # native
-r = "../../"
+r = "../.."
 
 # vm
 h = "/home/vagrant"
