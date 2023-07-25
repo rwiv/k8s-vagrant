@@ -22,13 +22,9 @@ sudo apt-get install -y btop
 rcs=( ~/.bashrc ~/.zshrc )
 
 if [ ! -e ~/.local/bin ]; then
-    mkdir -p ~/.local/bin
-
-    for rc in ${rcs[@]}; do
-        if [ -e $rc ]; then
-            echo "PATH=\$PATH:$HOME/.local/bin" | sudo tee -a $rc > /dev/null
-        fi
-    done
+    mkdir -p ~/errors
+    echo "not found ~/.local/bin" | tee "~/errors/`date -I`"
+    exit 1
 fi
 
 if [ -e /usr/bin/batcat ]; then
