@@ -3,7 +3,7 @@ require "yaml"
 conf = YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
 
 # native
-s = "../../scripts"
+r = "../../"
 
 # vm
 h = "/home/vagrant"
@@ -23,7 +23,8 @@ Vagrant.configure("2") do |config|
     v.vmx["numvcpus"] = conf["cpu"]
   end
 
-  config.vm.synced_folder "#{s}", "#{h}/scripts"
+  config.vm.synced_folder "#{r}/scripts", "#{h}/scripts"
+  config.vm.synced_folder "#{r}/sync", "#{h}/sync"
 
   config.vm.provision "shell", inline: "#{hsm}/base-settings.sh", privileged: false
   config.vm.provision "shell", inline: "#{hs}/zsh/init.sh", privileged: false
