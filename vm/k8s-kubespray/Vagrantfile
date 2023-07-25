@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
       cfg.vm.synced_folder "#{s}", "#{hs}"
 
-      cfg.vm.provision "shell", inline: "#{hsm}/base-settings.sh", privileged: false
+      cfg.vm.provision "shell", inline: "#{hsm}/base-preshell.sh", privileged: false
 
       cfg.vm.provision "file", source: "./kubespray", destination: "#{hk}"
       cfg.vm.provision "shell", inline: "cp -rfp #{hsk}/kubespray/bootstrap/* #{hk}", privileged: false
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
 
       cfg.vm.synced_folder "#{s}", "#{hs}"
 
-      cfg.vm.provision "shell", inline: "#{hsm}/base-settings.sh", privileged: false
+      cfg.vm.provision "shell", inline: "#{hsm}/base-preshell.sh", privileged: false
 
       cfg.vm.provision "shell", inline: "#{hsk}/kubespray/nodes/node-base.sh", privileged: false
     end

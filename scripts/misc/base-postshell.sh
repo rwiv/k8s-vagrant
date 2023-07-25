@@ -1,5 +1,4 @@
-# disable needrestart popup
-sudo sed -i "s/#\$nrconf{restart}.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+#!/bin/bash
 
 rcs=( ~/.bashrc ~/.zshrc )
 
@@ -20,8 +19,3 @@ for rc in ${rcs[@]}; do
         echo "alias vi='vim'" | sudo tee -a $rc > /dev/null
     fi
 done
-
-# add error directory
-if [ ! -e ~/errors ]; then
-    mkdir ~/errors
-fi

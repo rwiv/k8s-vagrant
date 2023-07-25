@@ -23,11 +23,4 @@ cp conf/.zshrc ~/.zshrc
 cp conf/.p10k.zsh ~/.p10k.zsh
 
 # copy .p10k.zsh to root home directory
-sudo cp ~/.p10k.zsh /root/.p10k.zsh
-
-
-if [ ! -e ~/.local/bin ]; then
-    mkdir -p ~/errors
-    echo "not found ~/.local/bin" | tee "~/errors/`date -I`"
-    exit 1
-fi
+sudo ln -s ~/.p10k.zsh /root/.p10k.zsh

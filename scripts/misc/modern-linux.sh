@@ -23,7 +23,7 @@ rcs=( ~/.bashrc ~/.zshrc )
 
 if [ ! -e ~/.local/bin ]; then
     mkdir -p ~/errors
-    echo "not found ~/.local/bin" | tee "~/errors/`date -I`"
+    echo "not found ~/.local/bin" | tee -a ~/errors/`date -I`
     exit 1
 fi
 
